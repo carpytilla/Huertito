@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCross — Maqueta Feria STEAM 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg: #0b0d11;
+  --road: #1c1e24;
+  --road2: #252830;
+  --sidewalk: #d4c5a9;
+  --sidewalk2: #c4b599;
+  --line: #f5f0e0;
+  --grass: #2d5a27;
+  --grass2: #3a7a32;
+  --red: #ff2d2d;
+  --yellow: #ffd60a;
+  --green: #00e676;
+  --blue: #00b4d8;
+  --accent: #ff6b35;
+  --panel: #0f1520;
+  --text: #cdd6f4;
+  --building: #1e2535;
+  --building2: #252d3f;
+  --win: #4fc3f7;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  font-family: 'Rajdhani', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 28px 20px 12px;
+  position: relative;
+}
+header::after {
+  content: '';
+  display: block;
+  margin: 12px auto 0;
+  width: 500px; max-width: 90%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--yellow), var(--accent), transparent);
+}
+header h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(16px, 4vw, 30px);
+  color: var(--yellow);
+  text-shadow: 0 0 24px rgba(255,214,10,0.5);
+  letter-spacing: 3px;
+}
+header p {
+  font-size: 12px;
+  color: #555;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px 16px 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* ════════════════════════════
+   MAQUETA SCENE
+════════════════════════════ */
+.maqueta-scene {
+  width: 560px;
+  max-width: 97vw;
+  height: 560px;
+  position: relative;
+  background: #0e1018;
+  border: 1px solid rgba(255,107,53,0.2);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(255,107,53,0.07), 0 24px 60px rgba(0,0,0,0.7);
+}
+
+/* Cielo */
+.sky {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 160px;
+  background: linear-gradient(180deg, #050810 0%, #0a1628 60%, #0e1a30 100%);
+}
+
+/* Estrellas */
+.star {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to   { opacity: 1; }
+}
+
+/* EDIFICIOS */
+.building {
+  position: absolute;
+  bottom: 270px;
+  background: var(--building);
+  border-top: 2px solid rgba(255,255,255,0.05);
+}
+.b1 { left: 10px;  width: 80px;  height: 130px; background: var(--building2); }
+.b2 { left: 96px;  width: 60px;  height: 100px; }
+.b3 { right: 10px; width: 85px;  height: 140px; background: var(--building2); }
+.b4 { right: 101px; width: 55px; height: 90px; }
+
+/* Ventanas edificios */
+.win-grid {
+  position: absolute;
+  top: 10px; left: 8px; right: 8px;
+  display: grid;
+  gap: 5px;
+}
+.win-grid span {
+  display: block;
+  width: 10px; height: 8px;
+  background: var(--win);
+  border-radius: 1px;
+  opacity: 0.6;
+  animation: win-blink 4s ease-in-out infinite alternate;
+}
+.win-grid span:nth-child(2n) { animation-delay: 1s; background: #fff3b0; opacity: 0.4; }
+.win-grid span:nth-child(3n) { animation-delay: 2s; }
+@keyframes win-blink {
+  0%,80% { opacity: 0.6; }
+  85% { opacity: 0.1; }
+  100% { opacity: 0.6; }
+}
+
+/* ACERAS */
+.sidewalk {
+  position: absolute;
+  left: 0; right: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--sidewalk) 0px, var(--sidewalk) 28px,
+    var(--sidewalk2) 28px, var(--sidewalk2) 30px
+  );
+}
+.sw-top {
+  top: 255px;
+  height: 50px;
+  border-bottom: 2px solid #a09070;
+}
+.sw-bottom {
+  bottom: 60px;
+  height: 50px;
+  border-top: 2px solid #a09070;
+}
+
+/* Pasto lateral */
+.grass-left {
+  position: absolute;
+  left: 0; top: 255px;
+  width: 50px; height: 50px;
+  background: var(--grass);
+  border-right: 3px solid var(--grass2);
+}
+.grass-right {
+  position: absolute;
+  right: 0; top: 255px;
+  width: 50px; height: 50px;
+  background: var(--grass);
+  border-left: 3px solid var(--grass2);
+}
+.grass-left2 {
+  position: absolute;
+  left: 0; bottom: 60px;
+  width: 50px; height: 50px;
+  background: var(--grass);
+  border-right: 3px solid var(--grass2);
+}
+.grass-right2 {
+  position: absolute;
+  right: 0; bottom: 60px;
+  width: 50px; height: 50px;
+  background: var(--grass);
+  border-left: 3px solid var(--grass2);
+}
+
+/* CALLE */
+.road {
+  position: absolute;
+  left: 0; right: 0;
+  top: 305px;
+  height: 140px;
+  background: var(--road);
+}
+
+/* Línea central punteada */
+.center-line {
+  position: absolute;
+  top: 370px;
+  left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--yellow) 0px, var(--yellow) 28px,
+    transparent 28px, transparent 44px
+  );
+  opacity: 0.7;
+}
+
+/* CRUCE PEATONAL */
+.crosswalk {
+  position: absolute;
+  top: 305px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 4px 0;
+  gap: 0;
+}
+.cw-stripe {
+  height: 16px;
+  background: rgba(245,240,224,0.88);
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(255,255,255,0.2);
+}
+
+/* Franjas luminosas del cruce inteligente */
+.smart-stripe {
+  background: rgba(0,230,118,0.25) !important;
+  border: 1px solid rgba(0,230,118,0.5);
+  animation: smart-pulse 1.5s ease-in-out infinite alternate;
+}
+@keyframes smart-pulse {
+  from { background: rgba(0,230,118,0.1); box-shadow: 0 0 4px rgba(0,230,118,0.2); }
+  to   { background: rgba(0,230,118,0.35); box-shadow: 0 0 14px rgba(0,230,118,0.5); }
+}
+
+/* ── SEMÁFOROS ── */
+.traffic-light {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Poste */
+.tl-pole {
+  width: 6px;
+  background: linear-gradient(180deg, #607d8b, #455a64);
+  border-radius: 3px;
+}
+
+/* Caja del semáforo */
+.tl-box {
+  width: 26px;
+  background: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 5px;
+  padding: 4px 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  position: relative;
+}
+.tl-box::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 50%; transform: translateX(-50%);
+  width: 10px; height: 3px;
+  background: #555;
+  border-radius: 2px 2px 0 0;
+}
+
+.tl-light {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1px solid #000;
+}
+.tl-red    { background: #2a0000; }
+.tl-yellow { background: #2a2000; }
+.tl-green  { 
+  background: radial-gradient(circle at 35% 35%, #4dff91, #00c853);
+  box-shadow: 0 0 12px rgba(0,230,118,0.8), 0 0 24px rgba(0,230,118,0.4);
+  animation: green-glow 1s ease-in-out infinite alternate;
+}
+@keyframes green-glow {
+  from { box-shadow: 0 0 8px rgba(0,230,118,0.6); }
+  to   { box-shadow: 0 0 18px rgba(0,230,118,1), 0 0 30px rgba(0,230,118,0.4); }
+}
+
+/* Semáforo izquierdo */
+.tl-left {
+  top: 228px;
+  left: 156px;
+}
+.tl-left .tl-pole { height: 50px; }
+
+/* Semáforo derecho */
+.tl-right {
+  top: 228px;
+  right: 156px;
+}
+.tl-right .tl-pole { height: 50px; }
+
+/* ── SEÑAL DE ADVERTENCIA ── */
+.warning-sign {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ws-pole {
+  width: 4px;
+  height: 36px;
+  background: linear-gradient(180deg, #78909c, #546e7a);
+  border-radius: 2px;
+}
+.ws-sign {
+  width: 32px; height: 32px;
+  background: var(--yellow);
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(255,214,10,0.5);
+  animation: warn-blink 1.2s ease-in-out infinite alternate;
+}
+.ws-sign::after {
+  content: '!';
+  transform: rotate(-45deg);
+  font-weight: 900;
+  font-size: 16px;
+  color: #000;
+  font-family: 'Orbitron', monospace;
+}
+@keyframes warn-blink {
+  from { box-shadow: 0 0 6px rgba(255,214,10,0.4); }
+  to   { box-shadow: 0 0 18px rgba(255,214,10,0.9); }
+}
+
+.ws-left  { top: 250px; left: 60px; }
+.ws-right { top: 250px; right: 60px; }
+
+/* ── SENSOR DE VELOCIDAD ── */
+.speed-sensor {
+  position: absolute;
+  top: 316px;
+  left: 66px;
+  width: 30px;
+  height: 20px;
+  background: #1a2a3a;
+  border: 1px solid var(--blue);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  font-family: 'Orbitron', monospace;
+  color: var(--blue);
+  letter-spacing: 0px;
+  box-shadow: 0 0 8px rgba(0,180,216,0.4);
+  animation: sensor-scan 2s ease-in-out infinite alternate;
+}
+@keyframes sensor-scan {
+  from { box-shadow: 0 0 4px rgba(0,180,216,0.3); border-color: rgba(0,180,216,0.4); }
+  to   { box-shadow: 0 0 14px rgba(0,180,216,0.8); border-color: rgba(0,180,216,0.9); }
+}
+
+/* Ondas del sensor */
+.scan-wave {
+  position: absolute;
+  top: 322px;
+  left: 96px;
+  border-top: 2px solid rgba(0,180,216,0.4);
+  border-radius: 0 0 0 0;
+  animation: wave-out 1.5s ease-out infinite;
+  opacity: 0;
+}
+.w1 { width: 20px; height: 10px; border-radius: 0 50% 0 0; animation-delay: 0s; }
+.w2 { width: 34px; height: 18px; border-radius: 0 50% 0 0; animation-delay: 0.3s; }
+.w3 { width: 48px; height: 26px; border-radius: 0 50% 0 0; animation-delay: 0.6s; }
+@keyframes wave-out {
+  0%   { opacity: 0.8; transform: scale(0.5); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* ── PEATONES ── */
+.pedestrian {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ped-head {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #ffcc80;
+  border: 1px solid #bf8040;
+}
+.ped-body {
+  width: 8px; height: 14px;
+  border-radius: 2px;
+  margin-top: 1px;
+}
+.ped-legs {
+  display: flex; gap: 2px; margin-top: 1px;
+}
+.ped-leg {
+  width: 3px; height: 8px;
+  border-radius: 1px;
+}
+
+/* Peatón 1 - cruzando */
+.ped-1 { top: 318px; left: 226px; animation: walk 1.2s ease-in-out infinite alternate; }
+.ped-1 .ped-body { background: #3f51b5; }
+.ped-1 .ped-leg  { background: #212121; }
+
+/* Peatón 2 - en acera esperando */
+.ped-2 { top: 262px; left: 210px; }
+.ped-2 .ped-body { background: #e91e63; }
+.ped-2 .ped-leg  { background: #4a148c; }
+
+/* Peatón 3 - cruzando */
+.ped-3 { top: 350px; left: 246px; animation: walk 1.4s ease-in-out infinite alternate; animation-delay: 0.3s; }
+.ped-3 .ped-body { background: #ff9800; }
+.ped-3 .ped-leg  { background: #333; }
+
+@keyframes walk {
+  from { transform: translateX(0px); }
+  to   { transform: translateX(4px); }
+}
+
+/* ── AUTO ── */
+.car {
+  position: absolute;
+  width: 58px; height: 28px;
+}
+.car-body {
+  position: absolute;
+  bottom: 0;
+  width: 100%; height: 20px;
+  border-radius: 3px;
+}
+.car-top {
+  position: absolute;
+  bottom: 18px;
+  left: 10px; right: 8px; height: 14px;
+  border-radius: 4px 4px 0 0;
+  opacity: 0.9;
+}
+.car-win {
+  position: absolute;
+  bottom: 19px;
+  left: 12px; right: 10px; height: 11px;
+  background: rgba(150,200,255,0.4);
+  border-radius: 3px 3px 0 0;
+}
+.car-wheel {
+  position: absolute;
+  bottom: -4px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #111;
+  border: 2px solid #555;
+}
+.car-wl { left: 6px; }
+.car-wr { right: 6px; }
+.car-light {
+  position: absolute;
+  width: 6px; height: 5px;
+  border-radius: 1px;
+  top: 8px;
+}
+
+.car1 { top: 316px; left: 70px; }
+.car1 .car-body { background: #c62828; }
+.car1 .car-top  { background: #b71c1c; }
+.car1 .car-light { right: -2px; background: #ff6d00; box-shadow: 0 0 6px #ff6d00; }
+
+.car2 { top: 358px; right: 70px; transform: scaleX(-1); }
+.car2 .car-body { background: #1565c0; }
+.car2 .car-top  { background: #0d47a1; }
+.car2 .car-light { right: -2px; background: #ffeb3b; box-shadow: 0 0 6px #ffeb3b; }
+
+/* ── POSTE DE LUZ ── */
+.street-light {
+  position: absolute;
+}
+.sl-pole {
+  width: 5px;
+  background: linear-gradient(180deg, #90a4ae, #546e7a);
+  border-radius: 3px;
+}
+.sl-head {
+  width: 22px; height: 8px;
+  background: #546e7a;
+  border-radius: 3px 3px 0 0;
+  margin-left: -8px;
+  position: relative;
+}
+.sl-bulb {
+  width: 10px; height: 10px;
+  background: radial-gradient(circle at 40% 40%, #fffde7, #ffd600);
+  border-radius: 50%;
+  position: absolute;
+  bottom: -5px; left: 6px;
+  box-shadow: 0 0 14px rgba(255,214,10,0.6), 0 0 30px rgba(255,214,10,0.2);
+  animation: lamp-glow 3s ease-in-out infinite alternate;
+}
+@keyframes lamp-glow {
+  from { box-shadow: 0 0 10px rgba(255,214,10,0.5); }
+  to   { box-shadow: 0 0 22px rgba(255,214,10,0.9), 0 0 50px rgba(255,214,10,0.3); }
+}
+
+.sl1 { top: 170px; left: 130px; }
+.sl1 .sl-pole { height: 88px; }
+.sl2 { top: 170px; right: 130px; }
+.sl2 .sl-pole { height: 88px; }
+
+/* Halo de luz */
+.light-halo {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,214,10,0.06), transparent 70%);
+  pointer-events: none;
+}
+.lh1 { width: 120px; height: 120px; top: 222px; left: 80px; }
+.lh2 { width: 120px; height: 120px; top: 222px; right: 80px; }
+
+/* ── PANEL DATOS / DISPLAY DIGITAL ── */
+.data-board {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  background: #050d14;
+  border: 1px solid rgba(0,180,216,0.4);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: 'Orbitron', monospace;
+  box-shadow: 0 0 16px rgba(0,180,216,0.2);
+}
+.db-title {
+  font-size: 7px;
+  color: rgba(0,180,216,0.7);
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(0,180,216,0.2);
+  padding-bottom: 4px;
+}
+.db-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  color: #aaa;
+  margin-bottom: 3px;
+}
+.db-val {
+  color: var(--green);
+  font-weight: 700;
+}
+.db-val.warn { color: var(--red); animation: blink-red 0.8s step-end infinite; }
+@keyframes blink-red {
+  50% { color: transparent; }
+}
+
+/* Pie de escena */
+.scene-label {
+  position: absolute;
+  bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  color: rgba(255,107,53,0.6);
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+/* Corner deco */
+.corner { position: absolute; width: 18px; height: 18px; }
+.corner::before, .corner::after { content:''; position:absolute; background: var(--accent); }
+.corner::before { width:100%; height:2px; top:0; }
+.corner::after  { width:2px; height:100%; top:0; }
+.corner.tl { top:8px; left:8px; }
+.corner.tr { top:8px; right:8px; transform:scaleX(-1); }
+.corner.bl { bottom:8px; left:8px; transform:scaleY(-1); }
+.corner.br { bottom:8px; right:8px; transform:scale(-1); }
+
+/* ════════════════════════════
+   INFO PANELS
+════════════════════════════ */
+.info-panel {
+  flex: 1;
+  min-width: 260px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.info-card {
+  background: rgba(15,21,32,0.9);
+  border: 1px solid rgba(255,107,53,0.12);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.info-card.blue-card  { border-left-color: var(--blue); }
+.info-card.green-card { border-left-color: var(--green); }
+.info-card.ods-card   { border-left-color: #e63946; }
+
+.card-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+.blue-card  .card-title { color: var(--blue); }
+.green-card .card-title { color: var(--green); }
+.ods-card   .card-title { color: #e63946; }
+
+.card-body {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #8899aa;
+}
+.card-body strong { color: #ddd; }
+
+/* stat bars */
+.stat { margin-top: 8px; }
+.stat-label { display:flex; justify-content:space-between; font-size:11px; color:#556; margin-bottom:3px; }
+.stat-bar { height:5px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden; }
+.stat-fill { height:100%; border-radius:3px; animation: fill-in 1.8s ease-out forwards; }
+@keyframes fill-in { from { width:0; } }
+.fill-red    { background: linear-gradient(90deg, #7f0000, var(--red)); }
+.fill-yellow { background: linear-gradient(90deg, #8a5700, var(--yellow)); }
+.fill-blue   { background: linear-gradient(90deg, #003560, var(--blue)); }
+.fill-green  { background: linear-gradient(90deg, #003d1a, var(--green)); }
+
+/* formula */
+.formula-box {
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,107,53,0.15);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--yellow);
+  line-height: 2.1;
+}
+.formula-box span {
+  color: #555;
+  font-size: 10px;
+  display: block;
+  line-height: 1;
+  margin-top: -4px;
+  margin-bottom: 4px;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* ODS */
+.ods-badges { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.ods-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-family: 'Orbitron', monospace;
+  letter-spacing: 1px;
+  border: 1px solid;
+}
+.ods-11 { background:rgba(253,157,36,0.15); border-color:#fd9d24; color:#fd9d24; }
+.ods-3  { background:rgba(76,159,56,0.15);  border-color:#4c9f38; color:#8ecf76; }
+.ods-9  { background:rgba(253,105,37,0.15); border-color:#fd6925; color:#fd9d24; }
+
+footer {
+  text-align: center;
+  padding: 18px;
+  font-size: 11px;
+  color: #2a2a2a;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🚦 SMARTCROSS — CRUCE PEATONAL INTELIGENTE</h1>
+  <p>Feria STEAM 2026 · ODS 11 · Ciudades Sostenibles</p>
+</header>
+
+<div class="stage">
+
+  <!-- ══ MAQUETA ══ -->
+  <div class="maqueta-scene">
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
+    <!-- CIELO Y ESTRELLAS -->
+    <div class="sky">
+      <div class="star" style="top:20px;left:50px;animation-delay:.2s"></div>
+      <div class="star" style="top:40px;left:160px;animation-delay:.8s"></div>
+      <div class="star" style="top:15px;left:280px;animation-delay:1.2s"></div>
+      <div class="star" style="top:55px;left:400px;animation-delay:.5s"></div>
+      <div class="star" style="top:30px;left:490px;animation-delay:1.8s"></div>
+      <div class="star" style="top:70px;left:340px;animation-delay:.3s"></div>
+      <div class="star" style="top:10px;left:380px;animation-delay:1.5s"></div>
+    </div>
+
+    <!-- EDIFICIOS -->
+    <div class="building b1">
+      <div class="win-grid" style="grid-template-columns:repeat(4,10px)">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="building b2">
+      <div class="win-grid" style="grid-template-columns:repeat(3,10px)">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="building b3">
+      <div class="win-grid" style="grid-template-columns:repeat(4,10px)">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="building b4">
+      <div class="win-grid" style="grid-template-columns:repeat(3,10px)">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- PANEL DATOS DIGITAL -->
+    <div class="data-board">
+      <div class="db-title">📡 SMARTCROSS v2.0</div>
+      <div class="db-row"><span>VELOCIDAD</span><span class="db-val warn">72 km/h</span></div>
+      <div class="db-row"><span>LÍMITE</span><span class="db-val">40 km/h</span></div>
+      <div class="db-row"><span>PEATONES</span><span class="db-val">3</span></div>
+      <div class="db-row"><span>ESTADO</span><span class="db-val" style="color:var(--green)">✓ OK</span></div>
+    </div>
+
+    <!-- POSTES DE LUZ -->
+    <div class="street-light sl1">
+      <div class="sl-head"><div class="sl-bulb"></div></div>
+      <div class="sl-pole"></div>
+    </div>
+    <div class="street-light sl2">
+      <div class="sl-head"><div class="sl-bulb"></div></div>
+      <div class="sl-pole"></div>
+    </div>
+    <div class="light-halo lh1"></div>
+    <div class="light-halo lh2"></div>
+
+    <!-- SEÑALES DE ADVERTENCIA -->
+    <div class="warning-sign ws-left"><div class="ws-sign"></div><div class="ws-pole"></div></div>
+    <div class="warning-sign ws-right"><div class="ws-sign"></div><div class="ws-pole"></div></div>
+
+    <!-- SEMÁFOROS -->
+    <div class="traffic-light tl-left">
+      <div class="tl-box">
+        <div class="tl-light tl-red"></div>
+        <div class="tl-light tl-yellow"></div>
+        <div class="tl-light tl-green"></div>
+      </div>
+      <div class="tl-pole"></div>
+    </div>
+    <div class="traffic-light tl-right">
+      <div class="tl-box">
+        <div class="tl-light tl-red"></div>
+        <div class="tl-light tl-yellow"></div>
+        <div class="tl-light tl-green"></div>
+      </div>
+      <div class="tl-pole"></div>
+    </div>
+
+    <!-- ACERAS -->
+    <div class="sidewalk sw-top"></div>
+    <div class="sidewalk sw-bottom"></div>
+    <div class="grass-left"></div><div class="grass-right"></div>
+    <div class="grass-left2"></div><div class="grass-right2"></div>
+
+    <!-- CALLE -->
+    <div class="road"></div>
+    <div class="center-line"></div>
+
+    <!-- CRUCE PEATONAL INTELIGENTE -->
+    <div class="crosswalk">
+      <div class="cw-stripe smart-stripe"></div>
+      <div class="cw-stripe"></div>
+      <div class="cw-stripe smart-stripe"></div>
+      <div class="cw-stripe"></div>
+      <div class="cw-stripe smart-stripe"></div>
+      <div class="cw-stripe"></div>
+      <div class="cw-stripe smart-stripe"></div>
+    </div>
+
+    <!-- SENSOR DE VELOCIDAD Y ONDAS -->
+    <div class="speed-sensor">RADAR</div>
+    <div class="scan-wave w1"></div>
+    <div class="scan-wave w2"></div>
+    <div class="scan-wave w3"></div>
+
+    <!-- PEATONES -->
+    <div class="pedestrian ped-1">
+      <div class="ped-head"></div>
+      <div class="ped-body"></div>
+      <div class="ped-legs"><div class="ped-leg"></div><div class="ped-leg"></div></div>
+    </div>
+    <div class="pedestrian ped-2">
+      <div class="ped-head"></div>
+      <div class="ped-body"></div>
+      <div class="ped-legs"><div class="ped-leg"></div><div class="ped-leg"></div></div>
+    </div>
+    <div class="pedestrian ped-3">
+      <div class="ped-head"></div>
+      <div class="ped-body"></div>
+      <div class="ped-legs"><div class="ped-leg"></div><div class="ped-leg"></div></div>
+    </div>
+
+    <!-- AUTOS -->
+    <div class="car car1">
+      <div class="car-top"></div>
+      <div class="car-win"></div>
+      <div class="car-body"></div>
+      <div class="car-wheel car-wl"></div>
+      <div class="car-wheel car-wr"></div>
+      <div class="car-light"></div>
+    </div>
+    <div class="car car2">
+      <div class="car-top"></div>
+      <div class="car-win"></div>
+      <div class="car-body"></div>
+      <div class="car-wheel car-wl"></div>
+      <div class="car-wheel car-wr"></div>
+      <div class="car-light"></div>
+    </div>
+
+    <div class="scene-label">SMARTCROSS · FERIA STEAM 2026</div>
+  </div>
+
+  <!-- ══ INFO PANELS ══ -->
+  <div class="info-panel">
+
+    <div class="info-card">
+      <div class="card-title">🚗 El Problema</div>
+      <div class="card-body">
+        <strong>1.35 millones</strong> de personas mueren cada año en accidentes de tránsito.<br>
+        Es la <strong>1ª causa de muerte</strong> en jóvenes de 5 a 29 años.<br>
+        La mayoría ocurre en cruces mal diseñados o sin tecnología.
+      </div>
+      <div class="stat">
+        <div class="stat-label"><span>Muertes en cruces peatonales</span><span>45%</span></div>
+        <div class="stat-bar"><div class="stat-fill fill-red" style="width:45%"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label"><span>Reducción con semáforos inteligentes</span><span>40%</span></div>
+        <div class="stat-bar"><div class="stat-fill fill-green" style="width:40%"></div></div>
+      </div>
+    </div>
+
+    <div class="info-card blue-card">
+      <div class="card-title">📡 Componentes del Sistema</div>
+      <div class="card-body">
+        <strong>Semáforo inteligente</strong> — verde activo, detecta peatones.<br>
+        <strong>Radar de velocidad</strong> — alerta si el auto va muy rápido.<br>
+        <strong>Franjas luminosas</strong> — visibles de noche, alertan al conductor.<br>
+        <strong>Señales de advertencia</strong> — a 50 metros del cruce.<br>
+        <strong>Panel digital</strong> — muestra datos en tiempo real.
+      </div>
+    </div>
+
+    <div class="info-card green-card">
+      <div class="card-title">📐 Matemáticas del Proyecto</div>
+      <div class="card-body">Cálculos reales usados en el proyecto:</div>
+      <div class="formula-box">
+        <span>Distancia de frenado (v=60 km/h):</span>
+        d = v² ÷ (2×a) = 3600 ÷ 58 ≈ 28 m
+        <span>Distancia recorrida en reacción (1.5 s):</span>
+        d = 60×(1.5÷3.6) ≈ 25 metros
+        <span>Vidas salvadas con reducción 40%:</span>
+        1,350,000 × 0.40 = 540,000 vidas/año
+      </div>
+    </div>
+
+    <div class="info-card ods-card">
+      <div class="card-title">🌍 Objetivos de Desarrollo Sostenible</div>
+      <div class="card-body">Este proyecto impacta directamente en:</div>
+      <div class="ods-badges">
+        <span class="ods-badge ods-11">ODS 11 — Ciudades Sostenibles</span>
+        <span class="ods-badge ods-3">ODS 3 — Salud y Bienestar</span>
+        <span class="ods-badge ods-9">ODS 9 — Infraestructura</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>Feria STEAM 2026 · Departamento de Matemáticas · El Futuro</footer>
+
+</body>
+</html>
